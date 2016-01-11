@@ -224,6 +224,11 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
 
         int notId = parseInt(NOT_ID, extras);
         Intent notificationIntent = new Intent(this, PushHandlerActivity.class);
+        
+        if (extras.containsKey("receiver") && "intercom_sdk".equals(extras.getString("receiver"))) {
+             return;
+        }
+        
         notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         notificationIntent.putExtra(PUSH_BUNDLE, extras);
         notificationIntent.putExtra(NOT_ID, notId);
